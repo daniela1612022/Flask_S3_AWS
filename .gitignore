@@ -1,0 +1,28 @@
+# Ignorar el entorno virtual
+env/
+
+# Ignorar archivos de Cloud9
+.c9/
+
+# Ignorar archivos temporales y de configuración
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Ignorar archivos de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignorar entornos virtuales en general
+venv/
+ENV/
+env.bak/
+env/
+.venv/
+
+# Ignorar archivos de configuración de editor de texto
+.vscode/
+.idea/

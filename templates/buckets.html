@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Buckets S3</title>
+</head>
+<body>
+    <h1>Lista de Buckets en S3</h1>
+    <ul>
+        {% for bucket in buckets %}
+            <li>{{ bucket }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
