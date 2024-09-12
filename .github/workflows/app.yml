@@ -20,15 +20,20 @@ jobs:
         with:
           python-version: '3.x'
 
-      # Paso 3: Crear archivo de clave privada y verificar formato
+      # Paso 3: Crear archivo de clave privada y verificar su codificación
       - name: Create SSH Key
         run: |
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ec2_key
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" | base64 --decode > ec2_key
           chmod 400 ec2_key
-          echo "Verificando el contenido de la clave:"
-          cat ec2_key  # Verificación para asegurarnos de que la clave SSH está correctamente almacenada
+          echo "Verificando el contenido de la clave"
+          cat ec2_key
 
-      # Paso 4: Intentar conexión SSH y desplegar la aplicación
+      # Paso 4: Probar conexión SSH sin ejecutar comandos
+      - name: Test SSH Connection
+        run: |
+          ssh -v -o StrictHostKeyChecking=no -i ec2_key "${{ secrets.USER_NAME }}@${{ secrets.SSH_HOST }}" echo "Conexión SSH exitosa"
+
+      # Paso 5: Desplegar en la instancia EC2
       - name: Deploy to EC2 Instance
         run: |
           ssh -o StrictHostKeyChecking=no -i ec2_key "${{ secrets.USER_NAME }}@${{ secrets.SSH_HOST }}" << 'EOF'
