@@ -20,15 +20,15 @@ jobs:
         with:
           python-version: '3.x'
 
-      # Paso 3: Crear archivo de clave privada y verificar su codificación
+      # Paso 3: Crear archivo de clave privada
       - name: Create SSH Key
         run: |
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" | base64 --decode > ec2_key
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ec2_key
           chmod 400 ec2_key
-          echo "Verificando el contenido de la clave"
-          cat ec2_key
+          echo "Clave SSH creada:"
+          ls -l ec2_key
 
-      # Paso 4: Probar conexión SSH sin ejecutar comandos
+      # Paso 4: Probar conexión SSH
       - name: Test SSH Connection
         run: |
           ssh -v -o StrictHostKeyChecking=no -i ec2_key "${{ secrets.USER_NAME }}@${{ secrets.SSH_HOST }}" echo "Conexión SSH exitosa"
